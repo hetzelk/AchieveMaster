@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -12,6 +13,26 @@ namespace AchieveMaster.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+    }
+
+    public class EditViewModel
+    {
+        public bool HasPassword { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string HomeLocation { get; set; }
+        public string ProfileImage { get; set; }
+        public string Theme { get; set; }
+        public string Description { get; set; }
+        public string CurrentSkills { get; set; }
+        public string FutureGoals { get; set; }
+        public string HeaderImage { get; set; }
+        public bool BrowserRemembered { get; set; }
+
+        //public static implicit operator EditViewModel(EditViewModel v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
     public class ManageLoginsViewModel

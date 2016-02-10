@@ -15,6 +15,7 @@ namespace AchieveMaster.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -52,7 +53,28 @@ namespace AchieveMaster.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public async Task<ActionResult> Edit()
+        {
+            var UserID = User.Identity.GetUserId();
+            ViewBag.FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FirstName;
+            ViewBag.LastName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).LastName;
+            ViewBag.HomeLocation = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HomeLocation;
+            ViewBag.Description = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).Description;
+            ViewBag.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).CurrentSkills;
+            ViewBag.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FutureGoals;
+            ViewBag.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).ProfileImage;
+            ViewBag.HeaderImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HeaderImage;
+            var model = new EditViewModel
+            {
+                HasPassword = HasPassword(),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserID)
+            };
+            return View(model);
+    }
+
+    //
+    // GET: /Manage/Index
+    public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."

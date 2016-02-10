@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AchieveMaster.Models.Request>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View All Requests</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="">
+@foreach (var item in Model)
+{
+<a href="@Url.Action("Details", new { id = item.ID })" class="MainHoverLink">
+    <div class="RequestDiv col-md-3 col-sm-6">
+        <p class="allbold">@Html.DisplayFor(modelItem => item.Title)</p>
+        <p><span class="allbold">Category:</span> @Html.DisplayFor(modelItem => item.Category)</p>
+        <p><span class="allbold">Description:</span> @Html.DisplayFor(modelItem => item.Description)</p>
+        <p><span class="allbold">Student Location:</span> @Html.DisplayFor(modelItem => item.StudentLocation)</p>
+        <p><span class="allbold">Meetup Location:</span> @Html.DisplayFor(modelItem => item.MeetLocation)</p>
+        <p><span class="allbold">Pay:</span> $@Html.DisplayFor(modelItem => item.PayRate)</p>
+    </div>
+</a>
+}
+</div> 

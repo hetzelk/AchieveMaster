@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:#ED6639;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,94 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.allbold{
+    font-weight:700;
+}
+
+.jumbotron{
+    background-color:#7F909A;
+    color:#000000;
+}
+
+.BlackFont{
+    color:#000000;
+}
+
+.GrayFont{
+    color:#7F909A;
+}
+
+.OrangeFont{
+    color:#ED6639;
+}
+
+.BlueFont{
+    color:#385B9F;
+}
+
+.WhiteFont{
+    color:#FFFFFF;
+}
+
+.BlackBG{
+    background-color:#000000;
+}
+
+.GrayBG{
+    background-color:#7F909A;
+}
+
+.OrangeBG{
+    background-color:#ED6639;
+}
+
+.BlueBG{
+    background-color:#385B9F;
+}
+
+.WhiteBG{
+    background-color:#FFFFFF;
+}
+
+.RequestDiv{
+    padding:20px;
+    background-color: lightslategrey;
+    border-radius:10px; 
+    border:2px solid black;
+    box-shadow:black 5px 5px;
+    float:left;
+}
+
+.RequestContainer{
+    border:5px solid black;
+}
+
+.GIHSize{
+    font-size:.84em;
+}
+
+a.MainHoverLink{
+    color:black;
+}
+
+a:hover.MainHoverLink div{
+    color:black;
+    background-color:#e0e0e0;
+    border-radius:10px;
+}
+
+a.MainHoverLink h2{
+    color:#4f0000;
+}
+
+a:hover.MainHoverLink h2{
+    color:black;
+}
+
+.EditTextArea{
+    width:500px;
+    height:100px;
+    border-radius:5px;
 }

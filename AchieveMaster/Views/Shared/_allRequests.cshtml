@@ -1,0 +1,21 @@
+﻿@model IEnumerable<AchieveMaster.Models.Request>
+    
+<h1 style="text-align:center;">Current Requests</h1>
+@*<p>
+    @Html.ActionLink("Create New", "Create", "Request")
+</p>*@
+<div class="">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details", "Request", new { id = item.ID })" class="MainHoverLink">
+            <div class="RequestDiv col-md-3 col-sm-6">
+                <p class="allbold">@Html.DisplayFor(modelItem => item.Title)</p>
+                <p><span class="allbold">Category:</span> @Html.DisplayFor(modelItem => item.Category)</p>
+                <p><span class="allbold">Description:</span> @Html.DisplayFor(modelItem => item.Description)</p>
+                <p><span class="allbold">Student Location:</span> @Html.DisplayFor(modelItem => item.StudentLocation)</p>
+                <p><span class="allbold">Meetup Location:</span> @Html.DisplayFor(modelItem => item.MeetLocation)</p>
+                <p><span class="allbold">Pay:</span> $@Html.DisplayFor(modelItem => item.PayRate)</p>
+            </div>
+        </a>
+    }
+</div> 
