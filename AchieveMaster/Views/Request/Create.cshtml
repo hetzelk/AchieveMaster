@@ -5,71 +5,186 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaOfisePaSvsm8bUCzmjJgs9fvDfu7gVc&callback=initMap"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+
 <h2>Create Request</h2>
 
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-6 none">
+                        @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.UserId } })
+                        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "EditTextArea form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.StudentLocation, new { htmlAttributes = new { @class = "form-control", @id = "studentspot" } })<button type="button" class="btn btn-default" onclick="StudentgeoLocation()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+                        @Html.ValidationMessageFor(model => model.StudentLocation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MeetLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MeetLocation, new { htmlAttributes = new { @class = "form-control", @id = "meetspot" } })<button type="button" class="btn btn-default" onclick="MeetgeoLocation()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+
+                        @Html.ValidationMessageFor(model => model.MeetLocation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PayRate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.PayRate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PayRate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
+        <div class="col-md-6">
+            <hr />
+            <h2 class="center">Locations</h2>
+            <p><b>Address</b>: <span id="address"></span></p>
+            <p id="error"></p>
+            <div id="map"></div>
         </div>
+    }
+</div>
+<script type="text/javascript">
+    function StudentgeoLocation() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            StudentAddressName(userLatLng);
+        });
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { @class = "EditTextArea form-control" })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    function MeetgeoLocation() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            MeetAddressName(userLatLng);
+        });
+    }
+</script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentLocation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<script>
+    function StudentAddressName(latLng) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            "location": latLng
+        },
+        function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK)
+                document.getElementById("studentspot").value = results[0].formatted_address;
+            else
+                alert("Unable to retrieve your address");
+        });
+    }
+    function MeetAddressName(latLng) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            "location": latLng
+        },
+        function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK)
+                document.getElementById("meetspot").value = results[0].formatted_address;
+            else
+                alert("Unable to retrieve your address");
+        });
+    }
+    function writeAddressName(latLng) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            "location": latLng
+        },
+        function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK)
+                document.getElementById("address").innerHTML = results[0].formatted_address;
+            else
+                document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
+        });
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MeetLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MeetLocation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MeetLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+      function geolocationSuccess(position) {
+        var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // Write the formatted address
+        writeAddressName(userLatLng);
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PayRate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PayRate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PayRate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        var myOptions = {
+          zoom : 16,
+          center : userLatLng,
+          mapTypeId : google.maps.MapTypeId.ROADMAP
+        };
+        // Draw the map
+        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+        // Place the marker
+        new google.maps.Marker({
+          map: mapObject,
+          position: userLatLng
+        });
+      }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+      function geolocationError(positionError) {
+        document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
+      }
+
+      function geolocateUser() {
+        // If the browser supports the Geolocation API
+        if (navigator.geolocation)
+        {
+          var positionOptions = {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          };
+          navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+        }
+        else
+          document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
+      }
+
+      window.onload = geolocateUser;
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -79,9 +194,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 @*<div class="form-group">
-    @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10" id="title">
+        @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10" id="title">
 
-        @Html.DropDownListFor(x => x.selectedRole, Model.Roles, " - Select New Role - ", new { @class = "btn btn-primary dropdown-toggle" })
+            @Html.DropDownListFor(x => x.selectedRole, Model.Roles, " - Select New Role - ", new { @class = "btn btn-primary dropdown-toggle" })
+        </div>
     </div>
-</div>*@
+
+        http://stackoverflow.com/questions/16274508/how-to-call-google-geocoding-service-from-c-sharp-code*@

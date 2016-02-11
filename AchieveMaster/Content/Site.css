@@ -10,6 +10,11 @@
     padding-right: 15px;
 }
 
+#map { 
+    height: 30em; 
+    width: 38em; 
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -24,13 +29,25 @@ textarea {
     max-width: 280px;
 }
 
+.none{
+    display:none;
+}
+.floatright{
+    float:right;
+}
 .allbold{
     font-weight:700;
+}
+
+.center{
+    text-align:center;
 }
 
 .jumbotron{
     background-color:#7F909A;
     color:#000000;
+    margin-top:15px;
+    padding-bottom:70px;
 }
 
 .BlackFont{
@@ -112,4 +129,8 @@ a:hover.MainHoverLink h2{
     width:500px;
     height:100px;
     border-radius:5px;
+}
+
+.photoForm{
+    height:300px;
 }

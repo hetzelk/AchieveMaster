@@ -10,6 +10,21 @@ namespace AchieveMaster.Models
         public string Email { get; set; }
     }
 
+    public class EditAccountViewModel
+    {
+        public bool HasPassword { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string HomeLocation { get; set; }
+        public string ProfileImage { get; set; }
+        public string Theme { get; set; }
+        public string Description { get; set; }
+        public string CurrentSkills { get; set; }
+        public string FutureGoals { get; set; }
+        public string HeaderImage { get; set; }
+        public bool BrowserRemembered { get; set; }
+    }
+
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }

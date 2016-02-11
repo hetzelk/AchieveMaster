@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AchieveMaster.Models;
+using System.Data.Entity;
 
 namespace AchieveMaster.Controllers
 {
@@ -17,6 +18,8 @@ namespace AchieveMaster.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context = new ApplicationDbContext();
+        private AchieveMasterDB db = new AchieveMasterDB();
 
         public AccountController()
         {
@@ -422,7 +425,7 @@ namespace AchieveMaster.Controllers
 
             base.Dispose(disposing);
         }
-
+        
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

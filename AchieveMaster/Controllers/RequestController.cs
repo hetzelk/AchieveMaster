@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AchieveMaster.Models;
+using Microsoft.AspNet.Identity;
 
 namespace AchieveMaster.Controllers
 {
@@ -17,7 +18,53 @@ namespace AchieveMaster.Controllers
         // GET: Request
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var UserID = User.Identity.GetUserId();
+            ViewBag.UserId = UserID;
+            List<Models.Request> CurrentRequests = new List<Models.Request>();
+            foreach (Request eachRequest in db.Requests)
+            {
+                if (eachRequest.Expired == "true")
+                {
+                    //do nothing
+                }
+                else
+                {
+                    CurrentRequests.Add(eachRequest);
+                }
+            }
+            return View(CurrentRequests);
+        }
+
+        // GET: Request
+        public ActionResult OldRequests()
+        {
+            var UserID = User.Identity.GetUserId();
+            ViewBag.UserId = UserID;
+            List<Models.Request> OldRequests = new List<Models.Request>();
+            foreach (Request eachRequest in db.Requests)
+            {
+                if (eachRequest.Expired == "true" && eachRequest.UserID == UserID)
+                {
+                    OldRequests.Add(eachRequest);
+                }
+            }
+            return View(OldRequests);
+        }
+
+        // GET: Request
+        public ActionResult MyRequests()
+        {
+            var UserID = User.Identity.GetUserId();
+            ViewBag.UserId = UserID;
+            List<Models.Request> MyRequests = new List<Models.Request>();
+            foreach(Request eachRequest in db.Requests)
+            {
+                if(eachRequest.Expired != "true" && eachRequest.UserID == UserID)
+                {
+                    MyRequests.Add(eachRequest);
+                }
+            }
+            return View(MyRequests);
         }
 
         // GET: Request/Details/5
@@ -38,6 +85,8 @@ namespace AchieveMaster.Controllers
         // GET: Request/Create
         public ActionResult Create()
         {
+            var UserID = User.Identity.GetUserId();
+            ViewBag.UserId = UserID;
             return View();
         }
 
@@ -46,7 +95,7 @@ namespace AchieveMaster.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,Category,Description,StudentLocation,MeetLocation,PayRate")] Request request)
+        public ActionResult Create([Bind(Include = "UserId,ID,Title,Category,Description,StudentLocation,MeetLocation,PayRate")] Request request)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +127,7 @@ namespace AchieveMaster.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,Category,Description,StudentLocation,MeetLocation,PayRate")] Request request)
+        public ActionResult Edit([Bind(Include = "UserId,ID,Title,Category,Description,StudentLocation,MeetLocation,PayRate")] Request request)
         {
             if (ModelState.IsValid)
             {

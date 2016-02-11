@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AchieveMaster.Models;
+using System.Data.Entity;
 
 namespace AchieveMaster.Controllers
 {
@@ -16,6 +17,7 @@ namespace AchieveMaster.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context = new ApplicationDbContext();
+        private AchieveMasterDB db = new AchieveMasterDB();
 
         public ManageController()
         {
@@ -51,30 +53,59 @@ namespace AchieveMaster.Controllers
             }
         }
 
+
         //
-        // GET: /Manage/Index
-        public async Task<ActionResult> Edit()
+        // GET: /Account/Edit
+        public ActionResult Edit()
         {
             var UserID = User.Identity.GetUserId();
-            ViewBag.FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FirstName;
-            ViewBag.LastName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).LastName;
-            ViewBag.HomeLocation = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HomeLocation;
-            ViewBag.Description = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).Description;
-            ViewBag.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).CurrentSkills;
-            ViewBag.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FutureGoals;
-            ViewBag.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).ProfileImage;
-            ViewBag.HeaderImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HeaderImage;
-            var model = new EditViewModel
-            {
-                HasPassword = HasPassword(),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserID)
-            };
-            return View(model);
-    }
+            ViewBag.UserId = UserID;
 
-    //
-    // GET: /Manage/Index
-    public async Task<ActionResult> Index(ManageMessageId? message)
+            string username = User.Identity.Name;
+
+            ApplicationUser user = context.Users.FirstOrDefault(u => u.UserName.Equals(username));
+            ViewBag.UserId = UserID;
+            EditViewModel model = new EditViewModel();
+            model.FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FirstName;
+            model.LastName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).LastName;
+            model.HomeLocation = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HomeLocation;
+            model.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).ProfileImage;
+            //model.HeaderImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).HeaderImage;
+            model.Description = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).Description;
+            model.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).CurrentSkills;
+            model.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(UserID).FutureGoals;
+
+            return View(model);
+        }
+
+        // POST: /Account/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditViewModel edit)
+        {
+            string username = User.Identity.Name;
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = context.Users.FirstOrDefault(u => u.UserName.Equals(username));
+                //user.FirstName = edit.FirstName;
+                //user.LastName = edit.LastName;
+                user.HomeLocation = edit.HomeLocation;
+                user.ProfileImage = edit.ProfileImage;
+                //user.HeaderImage = edit.HeaderImage;
+                user.Description = edit.Description;
+                user.CurrentSkills = edit.CurrentSkills;
+                user.FutureGoals = edit.FutureGoals;
+
+                context.Entry(user).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(edit);
+        }
+
+        //
+        // GET: /Manage/Index
+        public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -86,13 +117,21 @@ namespace AchieveMaster.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            ViewBag.FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).FirstName;
+            ViewBag.LastName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).LastName;
+            ViewBag.HomeLocation = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).HomeLocation;
+            ViewBag.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).ProfileImage;
+            ViewBag.HeaderImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).HeaderImage;
+            ViewBag.Description = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).Description;
+            ViewBag.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).CurrentSkills;
+            ViewBag.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId).FutureGoals;
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
             };
             return View(model);
         }
