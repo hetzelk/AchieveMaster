@@ -22,6 +22,8 @@
         <p><span class="allbold">Student Location:</span> @Html.DisplayFor(modelItem => item.StudentLocation)</p>
         <p><span class="allbold">Meetup Location:</span> @Html.DisplayFor(modelItem => item.MeetLocation)</p>
         <p><span class="allbold">Pay:</span> $@Html.DisplayFor(modelItem => item.PayRate)</p>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @Class = "btn BlueBG WhiteFont btn-sm floatright" })
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @Class = "btn btn-danger WhiteFont btn-sm floatright" })
     </div>
 </a>
 }

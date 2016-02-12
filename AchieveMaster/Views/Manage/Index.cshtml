@@ -30,21 +30,20 @@
             <h4><span class="allbold">Future Goals:</span>  @ViewBag.FutureGoals</h4>
         </div>
 
-        <dl class="dl-horizontal">
-            <dt>Password:</dt>
-            <dd>
-                [
-                @if (Model.HasPassword)
-                {
-                    @Html.ActionLink("Change your password", "ChangePassword")
-                }
-                else
-                {
-                    @Html.ActionLink("Create", "SetPassword")
-                }
-                ]
-            </dd>
-        </dl>
+        <p>
+            Password:
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </p>
+
     </div>
 
 
@@ -52,7 +51,7 @@
     <div class="col-md-6">
         <hr />
         <div>
-            <p class="allbold">Progile Image</p>
+            <p class="allbold">Profile Image</p>
             <img class="photoForm" src=@ViewBag.ProfileImage />
         </div>
         @*<div>

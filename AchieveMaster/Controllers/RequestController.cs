@@ -35,6 +35,11 @@ namespace AchieveMaster.Controllers
             return View(CurrentRequests);
         }
 
+        public ActionResult NoAccess()
+        {
+            return View();
+        }
+
         // GET: Request
         public ActionResult OldRequests()
         {
@@ -108,18 +113,23 @@ namespace AchieveMaster.Controllers
         }
 
         // GET: Request/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
             Request request = db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(request);
+            if(User.Identity.GetUserId() == request.UserID)
+            {
+                return View(request);
+            }
+            return RedirectToAction("NoAccess", "Request");
         }
 
         // POST: Request/Edit/5
@@ -143,14 +153,18 @@ namespace AchieveMaster.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
             Request request = db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(request);
+            if (User.Identity.GetUserId() == request.UserID)
+            {
+                return View(request);
+            }
+            return RedirectToAction("NoAccess", "Request");
         }
 
         // POST: Request/Delete/5
