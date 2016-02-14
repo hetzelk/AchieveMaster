@@ -1,0 +1,75 @@
+﻿@model AchieveMaster.Models.Messages
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Messages</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstDiscontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstDiscontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondDiscontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondDiscontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conversation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conversation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Expired)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expired)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

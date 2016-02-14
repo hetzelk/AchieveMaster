@@ -13,7 +13,7 @@
 @foreach (var item in Model)
 {
 <a href="@Url.Action("Details", new { id = item.ID })" class="MainHoverLink">
-    <div class="RequestDiv col-md-3 col-sm-6">
+    <div class="MyRequestDiv col-md-3 col-sm-6">
         <p class="allbold">@Html.DisplayFor(modelItem => item.Title)</p>
         <p>Posts expire after 45 days.</p>
         <p class="allbold">Days Since Post: @Html.DisplayFor(modelItem => item.Expired)</p>
@@ -22,8 +22,9 @@
         <p><span class="allbold">Student Location:</span> @Html.DisplayFor(modelItem => item.StudentLocation)</p>
         <p><span class="allbold">Meetup Location:</span> @Html.DisplayFor(modelItem => item.MeetLocation)</p>
         <p><span class="allbold">Pay:</span> $@Html.DisplayFor(modelItem => item.PayRate)</p>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @Class = "btn BlueBG WhiteFont btn-sm floatright" })
-        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @Class = "btn btn-danger WhiteFont btn-sm floatright" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @Class = "btn BlueBG WhiteFont btn-sm floatright" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @Class = "btn btn-danger WhiteFont btn-sm floatright" })
+            @Html.ActionLink("Mark Completed", "Completed", new { id = item.ID }, new { @Class = "btn btn-danger WhiteFont btn-sm floatright" })
     </div>
 </a>
 }

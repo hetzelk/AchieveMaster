@@ -49,6 +49,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PayPal, Version=1.7.2.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.7.2\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -112,9 +120,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -168,8 +173,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,11 +185,42 @@
     <Compile Include="Migrations\201602101508398_InitialMigration.Designer.cs">
       <DependentUpon>201602101508398_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602121501516_NinthMigration.cs" />
+    <Compile Include="Migrations\201602121501516_NinthMigration.Designer.cs">
+      <DependentUpon>201602121501516_NinthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121504065_TenthMigration.cs" />
+    <Compile Include="Migrations\201602121504065_TenthMigration.Designer.cs">
+      <DependentUpon>201602121504065_TenthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121515436_elevenMigration.cs" />
+    <Compile Include="Migrations\201602121515436_elevenMigration.Designer.cs">
+      <DependentUpon>201602121515436_elevenMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121521383_twelveMigration.cs" />
+    <Compile Include="Migrations\201602121521383_twelveMigration.Designer.cs">
+      <DependentUpon>201602121521383_twelveMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121602554_thirteenMigration.cs" />
+    <Compile Include="Migrations\201602121602554_thirteenMigration.Designer.cs">
+      <DependentUpon>201602121602554_thirteenMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121726229_fourteenMigration.cs" />
+    <Compile Include="Migrations\201602121726229_fourteenMigration.Designer.cs">
+      <DependentUpon>201602121726229_fourteenMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121728102_fifteenMigration.cs" />
+    <Compile Include="Migrations\201602121728102_fifteenMigration.Designer.cs">
+      <DependentUpon>201602121728102_fifteenMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AchieveMasterDB.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\CategoriesList.cs" />
+    <Compile Include="Models\Messages.cs" />
+    <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -252,6 +290,18 @@
     <Content Include="Views\Request\MyRequests.cshtml" />
     <Content Include="Views\Request\OldRequests.cshtml" />
     <Content Include="Views\Request\NoAccess.cshtml" />
+    <Content Include="Views\Messages\Create.cshtml" />
+    <Content Include="Views\Messages\Delete.cshtml" />
+    <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\Messages\Edit.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Messages\Reply.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Account\ViewUserAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,6 +317,27 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602101508398_InitialMigration.resx">
       <DependentUpon>201602101508398_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121501516_NinthMigration.resx">
+      <DependentUpon>201602121501516_NinthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121504065_TenthMigration.resx">
+      <DependentUpon>201602121504065_TenthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121515436_elevenMigration.resx">
+      <DependentUpon>201602121515436_elevenMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121521383_twelveMigration.resx">
+      <DependentUpon>201602121521383_twelveMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121602554_thirteenMigration.resx">
+      <DependentUpon>201602121602554_thirteenMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121726229_fourteenMigration.resx">
+      <DependentUpon>201602121726229_fourteenMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121728102_fifteenMigration.resx">
+      <DependentUpon>201602121728102_fifteenMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

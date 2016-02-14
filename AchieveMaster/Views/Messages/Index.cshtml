@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AchieveMaster.Models.Messages>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Messages</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            Student
+        </th>
+        <th>
+            Tutor
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewMessage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+        <tr onclick="location.href = '@(Url.Action("Details", "Messages", new { id = item.ID }))'">
+            <td>
+                @Html.ActionLink("Reply", "Reply", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewMessage)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+        }
+
+</table>

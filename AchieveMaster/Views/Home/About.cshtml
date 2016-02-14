@@ -2,14 +2,19 @@
     ViewBag.Title = "About";
 }
 
+<head>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaOfisePaSvsm8bUCzmjJgs9fvDfu7gVc&callback=initialize"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-            <h1 class="BlackFont center">About Achieve Master</h1>
-            <p class="BlackFont lead center">If you want to learn anything new or you want to spread your knowledge to others, this is the perfect place to come and do either.</p>
+    <div class="row" id="MyWrapper">
+        <div id="AboutMap"></div>
+        <div class="col-md-offset-1 col-md-10" id="AboutHeading">
+            <h1 class="BlackFont center allbold">About Achieve Master</h1>
+            <p class="BlackFont lead center allbold">If you want to learn anything new or you want to spread your knowledge to others, this is the perfect place to come and do either.</p>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6">
             <h2 class="BlackFont">Students</h2>
@@ -21,3 +26,51 @@
         </div>
     </div>
 </div>
+
+<script>
+    var geocoder;
+    var map;
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(40, -98);
+        var myOptions = {
+            zoom: 4,
+            center: latlng,
+            mapTypeControl: true,
+            navigationControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("AboutMap"), myOptions);
+
+    var styles = [
+  {
+      stylers: [
+        { hue: "#0000FF" },
+        { lightness: -30 },
+        { saturation: -50 }
+      ]
+  }, {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        { lightness: -10 },
+        { visibility: "off" }
+      ]
+  }, {
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+  }, {
+      featureType: "Locality",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+  }
+    ];
+
+    map.setOptions({ styles: styles });
+}
+</script>

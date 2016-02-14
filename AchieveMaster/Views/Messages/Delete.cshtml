@@ -1,0 +1,81 @@
+﻿@model AchieveMaster.Models.Messages
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Messages</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstDiscontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstDiscontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondDiscontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondDiscontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conversation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conversation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Expired)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expired)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
