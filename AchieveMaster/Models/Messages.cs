@@ -18,5 +18,8 @@ namespace AchieveMaster.Models
         public string Expired { get; set; }
         public bool NewMessage { get; set; }
         public bool blocked { get; set; }
+        public string FirstPersonName { get; set; }
+        public string SecondPersonName { get; set; }
+        public string UserID { get; internal set; }
     }
 }

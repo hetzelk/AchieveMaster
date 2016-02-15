@@ -53,6 +53,18 @@ namespace AchieveMaster.Controllers
             }
         }
 
+        //
+        //GET: /Manage/ViewUserAccount
+        public ActionResult ViewUserAccount(string id)
+        {
+            ViewBag.FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).FirstName;
+            ViewBag.LastName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).LastName;
+            ViewBag.Description = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).Description;
+            ViewBag.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).FutureGoals;
+            ViewBag.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).CurrentSkills;
+            ViewBag.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).ProfileImage;
+            return View();
+        }
 
         //
         // GET: /Account/Edit

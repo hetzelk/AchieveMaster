@@ -12,50 +12,42 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.FirstPersonName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.FirstPersonName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FirstPerson)
+            @Html.DisplayNameFor(model => model.SecondPersonName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstPerson)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecondPerson)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecondPerson)
+            @Html.DisplayFor(model => model.SecondPersonName)
         </dd>
     </dl>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 form-horizontal"
+         @Html.HiddenFor(model => model.ID)
         <h2>Conversation Messages</h2>
         <hr />
         <p>Conversation Start</p>
-        <p>
-            @Html.DisplayFor(model => model.Conversation)
-        </p>
+        
         @foreach(string line in ViewBag.SplitConversation)
         {               
-            <p>line</p>
+            <p class="allbold">@line</p>
         }
         <p>Conversation End</p>
 
+        <br />
         <div class="form-group">
             <div class="col-md-10">
-                <textarea id="message" style="width:500px;"></textarea>
+                @Html.TextAreaFor(model => model.Conversation, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Conversation, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-6">
                 <input type="submit" value="Send" class="btn btn-default" />

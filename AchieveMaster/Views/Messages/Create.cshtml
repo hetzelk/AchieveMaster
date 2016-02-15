@@ -23,45 +23,60 @@
             </div>
         </div>
 
-        <div class="form-group">Will Be Hidden
-            <div class="col-md-10">
+        <div class="form-group">
+            <div class="col-md-10 none">
                 @Html.EditorFor(model => model.FirstPerson, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.user1 } })
                 @Html.ValidationMessageFor(model => model.FirstPerson, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">Will Be Hidden
-            <div class="col-md-10">
+        <div class="form-group">
+            <div class="col-md-10 none">
                 @Html.EditorFor(model => model.SecondPerson, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.user2 } })
                 @Html.ValidationMessageFor(model => model.SecondPerson, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 none">
                 @Html.EditorFor(model => model.FirstDiscontinued, new { htmlAttributes = new { @class = "form-control", @Value = "false" } })
                 @Html.ValidationMessageFor(model => model.FirstDiscontinued, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 none">
                 @Html.EditorFor(model => model.SecondDiscontinued, new { htmlAttributes = new { @class = "form-control", @Value = "false" } })
                 @Html.ValidationMessageFor(model => model.SecondDiscontinued, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Conversation, htmlAttributes: new { @class = "control-label col-md-2", @Value = ViewBag.title })
             <div class="col-md-10">
-            Your Message :@Html.EditorFor(model => model.Conversation, new { htmlAttributes = new { @class = "form-control", id = "message1" } })
+            @Html.TextArea("Conversation", Model.Conversation, new { @class = "EditTextArea form-control", @Placeholder = "Type." })
                 @Html.ValidationMessageFor(model => model.Conversation, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Expired, new { htmlAttributes = new { @class = "form-control", @Value = "false"} })
+            <div class="col-md-10 none">
+                @Html.EditorFor(model => model.Expired, new { htmlAttributes = new { @class = "form-control", @Value = "false" } })
                 @Html.ValidationMessageFor(model => model.Expired, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 none">
+               @Html.EditorFor(model => model.FirstPersonName, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.FirstPerson } })
+                @Html.ValidationMessageFor(model => model.FirstPersonName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 none">
+               @Html.EditorFor(model => model.SecondPersonName, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.SecondPerson } })
+                @Html.ValidationMessageFor(model => model.SecondPersonName, "", new { @class = "text-danger" })
             </div>
         </div>
 

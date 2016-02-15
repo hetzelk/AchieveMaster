@@ -40,11 +40,11 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstPerson)
+                <a href="@(Url.Action("ViewUserAccount", "Manage", new { id = item.FirstPerson }))">@Html.DisplayFor(modelItem => item.FirstPersonName)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SecondPerson)
-            </td>
+                <a href="@(Url.Action("ViewUserAccount", "Manage", new { id = item.SecondPerson }))">@Html.DisplayFor(modelItem => item.SecondPersonName)</a>
+</td>
             <td>
                 @Html.DisplayFor(modelItem => item.Expired)
             </td>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.NewMessage)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Delete", "LeaveConversation", new { id = item.ID })
             </td>
         </tr>
         }

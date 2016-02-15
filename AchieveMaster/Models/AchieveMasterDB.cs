@@ -15,7 +15,7 @@ namespace AchieveMaster.Models
 
         public System.Data.Entity.DbSet<AchieveMaster.Models.Request> Requests { get; set; }
         public System.Data.Entity.DbSet<AchieveMaster.Models.Messages> Messages { get; set; }
-
         public System.Data.Entity.DbSet<AchieveMaster.Models.Categories> Categories { get; set; }
+        public System.Data.Entity.DbSet<AchieveMaster.Models.Reviews> Reviews { get; set; }
     }
 }

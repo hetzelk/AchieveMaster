@@ -213,12 +213,21 @@
     <Compile Include="Migrations\201602121728102_fifteenMigration.Designer.cs">
       <DependentUpon>201602121728102_fifteenMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602141950419_eigthteenthmigration.cs" />
+    <Compile Include="Migrations\201602141950419_eigthteenthmigration.Designer.cs">
+      <DependentUpon>201602141950419_eigthteenthmigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602150450336_nineteenthmigration.cs" />
+    <Compile Include="Migrations\201602150450336_nineteenthmigration.Designer.cs">
+      <DependentUpon>201602150450336_nineteenthmigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AchieveMasterDB.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\CategoriesList.cs" />
+    <Compile Include="Models\Reviews.cs" />
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Request.cs" />
@@ -301,7 +310,7 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Account\ViewUserAccount.cshtml" />
+    <Content Include="Views\Manage\ViewUserAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -338,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602121728102_fifteenMigration.resx">
       <DependentUpon>201602121728102_fifteenMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602141950419_eigthteenthmigration.resx">
+      <DependentUpon>201602141950419_eigthteenthmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602150450336_nineteenthmigration.resx">
+      <DependentUpon>201602150450336_nineteenthmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
