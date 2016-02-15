@@ -1,12 +1,41 @@
-﻿@{
+﻿@model IEnumerable<AchieveMaster.Models.Reviews>
+@{
     ViewBag.Title = "View User Account";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>@ViewBag.FirstName @ViewBag.LastName</p>
-<p>@ViewBag.Description</p>
-<p>@ViewBag.FutureGoals</p>
-<p>@ViewBag.CurrentSkills</p>
-
-
-<img class="photoForm" src=@ViewBag.ProfileImage />
+<div class="row">
+    <h2>@ViewBag.FirstName @ViewBag.LastName</h2>
+<hr />
+    <div class="col-md-6">
+        <br />
+        <p style="font-size:1.3em"><span class="allbold">Description: </span>@ViewBag.Description</p>
+        <br />
+        <p style="font-size:1.3em"><span class="allbold">Future Goals: </span>@ViewBag.FutureGoals</p>
+        <br />
+        <p style="font-size:1.3em"><span class="allbold">Current Skills: </span>@ViewBag.CurrentSkills</p>
+    </div>
+    <div class="col-md-6">
+        <img class="photoForm" src=@ViewBag.ProfileImage />
+        <br /><br />
+        <p style="font-size:1em">Reviews</p>
+        <a href="@(Url.Action("Create", "Reviews", new { id = ViewBag.LoggedUser }))">Rate Me!</a>
+        
+        @if (Model == null)
+        {
+            @Html.Raw("This User doesn't have any reviews yet.")
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <p style="font-size:1em"><span class="allbold">Rating as a Teacher:</span> 9/10</p>
+                if (ViewBag.LoggedUser == item.UserID)
+                {
+                    <p>Rating: @item.Rating /10</p>
+                    <p>Review: @item.Review</p>
+                }
+            }
+        }
+    </div>
+</div>

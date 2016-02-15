@@ -1,7 +1,7 @@
 ﻿@model AchieveMaster.Models.Messages
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Reply";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -39,11 +39,13 @@
             <p class="allbold">@line</p>
         }
         <p>Conversation End</p>
-
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
         <br />
         <div class="form-group">
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Conversation, new { htmlAttributes = new { @class = "form-control" } })
+                <textarea class="bigTextArea" @Html.TextAreaFor(model => model.Conversation, new { htmlAttributes = new { @class = "bigTextArea", @Value = "" } })></textarea>
                 @Html.ValidationMessageFor(model => model.Conversation, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -53,7 +55,7 @@
                 <input type="submit" value="Send" class="btn btn-default" />
             </div>
         </div>
-
+}
     </div>
 </div>
 <p>

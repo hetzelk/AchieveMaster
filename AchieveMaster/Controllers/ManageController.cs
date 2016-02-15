@@ -63,6 +63,7 @@ namespace AchieveMaster.Controllers
             ViewBag.FutureGoals = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).FutureGoals;
             ViewBag.CurrentSkills = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).CurrentSkills;
             ViewBag.ProfileImage = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id).ProfileImage;
+            ViewBag.LoggedUser = id;
             return View();
         }
 

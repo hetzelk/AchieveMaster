@@ -98,12 +98,22 @@ namespace AchieveMaster.Controllers
         // POST: Messages/Reply
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Reply([Bind(Include = "ID,NextMessage")] Messages newMessage)
+        public ActionResult Reply([Bind(Include = "ID,Conversation")] Messages newMessage)
         {
+            string FirstName = "";
+            string UserID = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                Messages message = db.Messages.Find(newMessage);
-                message.Conversation = message.Conversation + newMessage;
+                Messages message = db.Messages.Find(newMessage.ID);
+                if (UserID == message.FirstPerson)
+                {
+                    FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(message.FirstPerson).FirstName;
+                }
+                else if (UserID == message.SecondPerson)
+                {
+                    FirstName = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(message.SecondPerson).FirstName;
+                }
+                    message.Conversation = message.Conversation + "~" + FirstName + "-" + newMessage.Conversation;
                 message.NewMessage = true;
                 db.Entry(message).State = EntityState.Modified;
                 db.SaveChanges();

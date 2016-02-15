@@ -45,6 +45,11 @@ textarea {
     max-width: 280px;
 }
 
+.bigTextArea{
+    height:200px;
+    width:500px;
+}
+
 .none{
     display:none;
 }
